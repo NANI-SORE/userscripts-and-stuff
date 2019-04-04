@@ -364,6 +364,9 @@ var getViewer = function(prevChapter, nextChapter) {
   var floatingMsg = '<pre class="ml-box ml-floating-msg"></pre>';
   // stats
   var stats = '<div class="ml-box ml-stats"><span title="hide stats" class="ml-stats-collapse">&gt;&gt;</span><span class="ml-stats-content"><span class="ml-stats-pages"></span> ' +
+      '<i class="fa fa-search-minus ml-button ml-zoomout-button" title="Zoom Out"></i> ' +
+      '<i class="fa fa-search-equals ml-button ml-zoomreset-button" title="Zoom Reset"></i> ' +
+      '<i class="fa fa-search-plus ml-button ml-zoomin-button" title="Zoom In"></i> ' +
       '<i class="fa fa-info ml-button ml-info-button" title="See userscript information and help"></i> ' +
       '<i class="fa fa-bar-chart ml-button ml-more-stats-button" title="See page stats"></i> ' +
       '<i class="fa fa-cog ml-button ml-settings-button" title="Adjust userscript settings"></i> ' +
@@ -385,6 +388,9 @@ var getViewer = function(prevChapter, nextChapter) {
     statsPages: getEl('.ml-stats-pages'),
     statsCollapse: getEl('.ml-stats-collapse'),
     btnManualReload: getEl('.ml-manual-reload'),
+	btnZoomOut : getEl('.ml-zoomout-button'),
+	btnZoomReset : getEl('.ml-zoomreset-button'),
+	btnZoomIn : getEl('.ml-zoomin-button'),
     btnInfo: getEl('.ml-info-button'),
     btnMoreStats: getEl('.ml-more-stats-button'),
     floatingMsg: getEl('.ml-floating-msg'),
@@ -496,6 +502,15 @@ var getViewer = function(prevChapter, nextChapter) {
     if(target.dataset.ignore) UI.ignore = false;
     if((target.nodeName === 'INPUT' && target.type === 'text') || target.nodeName === 'TEXTAREA') UI.isTyping = false;
   }, true);
+  UI.btnZoomOut.addEventListener('click', function(evt) {
+    changeZoom('-', UI.images);
+  });
+  UI.btnZoomReset.addEventListener('click', function(evt) {
+    changeZoom('=', UI.images);
+  });
+  UI.btnZoomIn.addEventListener('click', function(evt) {
+    changeZoom('+', UI.images);
+  });
   UI.btnInfo.addEventListener('click', function(evt) {
     if(isMessageFloating() && UI.lastFloat === evt.target) {
       showFloatingMsg('');
@@ -766,7 +781,7 @@ var addImage = function(src, loc, imgNum, callback) {
     image.style.backgroundColor = 'white';
     image.style.cursor = 'pointer';
     image.title = 'Reload "' + src + '"?';
-    image.src = IMAGES.refresh_large;
+    //image.src = IMAGES.refresh_large; //lags when too many failed images
     image.onclick = function() {
       image.onload = callback;
       image.title = '';
