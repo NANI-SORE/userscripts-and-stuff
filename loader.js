@@ -1,7 +1,7 @@
 var W = window;
 
 var scriptName = 'Manga Loader';
-alert(scriptName);
+//alert(scriptName);
 var pageTitle = document.title;
 
 var IMAGES = {
@@ -97,12 +97,12 @@ var nsfwimp = [{
 var log = function(msg, type) {
   type = type || 'log';
   if (type === 'exit') {
-    alert('exit: ' + msg); //mobile debug
+    //alert('exit: ' + msg); //mobile debug
     log('exit: ' + msg, 'error');
     //throw 'mloader error';
   } else {
     //try {
-      alert(scriptName + ' ' + type + ': ' + msg); //mobile debug
+      //alert(scriptName + ' ' + type + ': ' + msg); //mobile debug
       //console[type]('%c' + scriptName + ' ' + type + ':', 'font-weight:bold;color:green;', msg);
     //} catch(e) { }
   }
