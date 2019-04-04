@@ -365,7 +365,7 @@ var getViewer = function(prevChapter, nextChapter) {
   // stats
   var stats = '<div class="ml-box ml-stats"><span title="hide stats" class="ml-stats-collapse">&gt;&gt;</span><span class="ml-stats-content"><span class="ml-stats-pages"></span> ' +
       '<i class="fa fa-search-minus ml-button ml-zoomout-button" title="Zoom Out"></i> ' +
-      '<i class="fa fa-search-search ml-button ml-zoomreset-button" title="Zoom Reset"></i> ' +
+      '<i class="fa fa-search ml-button ml-zoomreset-button" title="Zoom Reset"></i> ' +
       '<i class="fa fa-search-plus ml-button ml-zoomin-button" title="Zoom In"></i> ' +
       '<i class="fa fa-info ml-button ml-info-button" title="See userscript information and help"></i> ' +
       '<i class="fa fa-bar-chart ml-button ml-more-stats-button" title="See page stats"></i> ' +
