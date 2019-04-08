@@ -91,6 +91,41 @@ var nsfwimp = [{
   pages: function(url, num, cb, ex) {
     cb(ARFfwk.doReader.getImageUrl(ARFfwk.doReader.data['images'][num - 1]), num);
   }
+}, {
+  name: 'chudo-manga.ru',
+  match: "https?://host.chudo-manga.ru/reader/",
+  img: '#images_block div img',
+  next: reuse.na,
+  numpages: function() {
+    return getEl('#images_block').childNodes.length-1;
+  },
+  prevchap: '#pre_footer > a:first-child',
+  nextchap: '#pre_footer > a:last-child',
+  numchaps: function() {
+    return parseInt(getEl('#select_ch_rg > option:last-child').getAttribute('value').match(/(\d+)/g));
+  },
+  curchap: function() {
+    //return parseInt(getEl('#select_ch_rg > option[selected]:not(:first-child)').getAttribute('value').match(/(\d+)/g));
+    return parseInt(W.location.href.split('/').pop().match(/\d+$/));
+  },
+  pages: function(url, num, cb, ex) {
+    url = 'http://host.chudo-manga.ru/comic/'+W.str+W.location.href.split('/').pop().match(/\d+$/)+'/'+num+'.jpg';
+    num+=1;
+    ajax({
+      method: 'HEAD',
+      url: url,
+      responseType: 'json',
+      onload: function(e) {
+        var res = e.target.response;
+        if(!res) url = url.slice(0, -3)+'png';
+        cb(url, url);
+      },
+      onerror: function(e) {
+        url = url.slice(0, -3)+'png';
+        cb(url, url);
+      }
+    });
+  }
 }];
 //END OF NSFW IMPL
 
