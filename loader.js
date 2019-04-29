@@ -113,7 +113,7 @@ var nsfwimp = [{
 		return parseInt(W.location.href.split('/').pop().match(/\d+$/));
 	},
 	pages: function(url, num, cb, ex) {
-		url = W.imgarray[num];
+		url = W.imgarray[num-1];
 		num+=1;
 		cb(url, url);
 	}
@@ -130,7 +130,7 @@ var nsfwimp = [{
 		return document.querySelectorAll('figure .figure_wrapper img').length;
 	},
 	pages: function(url, num, cb, ex) {
-		url = W.imgarray[num];
+		url = W.imgarray[num-1];
 		num+=1;
 		cb(url, url);
 	}
