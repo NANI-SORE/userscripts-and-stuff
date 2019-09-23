@@ -41,13 +41,11 @@ var nsfwimp = [{
   img: '.reader-img',
   next: reuse.na,
   numpages: function(curpage) {
-    if(!W.tscheck) {
-      W.tskey = document.querySelector('#image-container').dataset.cdn.match(/(key=[^&]+&)/)[1];
-	  W.tsexp = document.querySelector('#image-container').dataset.cdn.match(/(expires=\S+)$/)[1];
-	  W.tstotal = document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1];
-	  W.tscheck = true;
-	}
-    return parseInt(document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1]);
+    W.tskey = document.querySelector('#image-container').dataset.cdn.match(/(key=[^&]+&)/)[1];
+    W.tsexp = document.querySelector('#image-container').dataset.cdn.match(/(expires=\S+)$/)[1];
+    W.tstotal = document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1];
+
+    return W.tstotal;
   },
   curpage: function() {
     return parseInt(document.querySelector("#pageNumberText").textContent.match(/(\d+)$/)[1]);
