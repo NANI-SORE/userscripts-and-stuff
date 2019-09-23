@@ -41,6 +41,12 @@ var nsfwimp = [{
   img: '.reader-img',
   next: reuse.na,
   numpages: function(curpage) {
+    if(!W.tscheck) {
+      W.tskey = document.querySelector('#image-container').dataset.cdn.match(/(key=[^&]+&)/)[1];
+	  W.tsexp = document.querySelector('#image-container').dataset.cdn.match(/(expires=\S+)$/)[1];
+	  W.tstotal = document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1];
+	  W.tscheck = true;
+	}
     return parseInt(document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1]);
   },
   curpage: function() {
@@ -49,7 +55,7 @@ var nsfwimp = [{
   pages: function(url, num, cb) {
     var self = this;
     let a = [], base = 'https://content.tsumino.com/parts/'+W.location.href.match(/Index\/(\d+)/)[1]+'/';
-    let key=document.querySelector('#image-container').dataset.cdn.match(/(key=[^&]+&)/)[1], exp=document.querySelector('#image-container').dataset.cdn.match(/(expires=\S+)$/)[1], total=document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1];
+    let key = W.tskey, exp = W.tsexp, total = W.tstotal;
     if(!self._pages) {
       for(let i=1;i<=total;i++){
         a.push(base + i + '?' + key + exp);
