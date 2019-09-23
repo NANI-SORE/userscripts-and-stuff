@@ -37,35 +37,25 @@ var nsfwimp = [{
   numpages: '#page-select-s'
 }, {
   name: 'tsumino',
-  match: '^https?://(www\\.)?tsumino.com/Read/View/.+',
+  match: '^https?://(www\\.)?tsumino.com/Read/Index/.+',
   img: '.reader-img',
   next: reuse.na,
   numpages: function(curpage) {
-    return W.reader_max_page;
+    return parseInt(document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1]);
   },
   curpage: function() {
-    return W.reader_current_pg;
+    return parseInt(document.querySelector("#pageNumberText").textContent.match(/(\d+)$/)[1]);
   },
   pages: function(url, num, cb) {
     var self = this;
+    let a = [], base = 'https://content.tsumino.com/parts/'+W.location.href.match(/Index\/(\d+)/)[1]+'/';
+    let key=document.querySelector('#image-container').dataset.cdn.match(/(key=[^&]+&)/)[1], exp=document.querySelector('#image-container').dataset.cdn.match(/(expires=\S+)$/)[1], total=document.querySelector("#pageNumberText").nextSibling.textContent.match(/(\d+)$/)[1];
     if(!self._pages) {
-      ajax({
-        method: 'POST',
-        url: '/Read/Load',
-        data: 'q=' + W.location.href.match(/View\/(\d+)/)[1],
-        responseType: 'json',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        },
-        onload: function(e) {
-          var res = e.target.response;
-          if(!res) return log('failed to load tsumino pages, site has probably been updated, report on forums', 'error');
-          self._pages = res.reader_page_urls.map(function(page) {
-            return W.reader_baseobj_url + '?name=' + encodeURIComponent(page);
-          });
-          cb(self._pages[num - 1], num);
-        }
-      });
+      for(let i=1;i<=total;i++){
+        a.push(base + i + '?' + key + exp);
+      };
+      self._pages = a;
+      cb(self._pages[num - 1], num);
     } else {
       cb(self._pages[num - 1], num);
     }
