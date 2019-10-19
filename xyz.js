@@ -53,16 +53,17 @@
 																				 l.setAttribute('onclick', 'return window.openInNewTab(event)');
 																				}//})
 												if(isParsed) return;
+												console.log([i, e.innerText, links, numbers]);
 												infos.push([i, e.innerText, links, numbers]);//infoCount])
 												//infoCount++;
 											}
 										   }//})
 		//console.log(infos);
 		//alert('test1');
-		for(var n=0;n<infos.length;n++) { var c=infos[n];
-										 //infos.forEach(function(e,i){
-										 setTimeout(function(){checkExt(c)}, 200*n);
-										}//})
+		//for(var n=0;n<infos.length;n++) { var c=infos[];
+		infos.forEach(function(e,i){
+			setTimeout(function(){checkExt(e)}, 200*i);
+		})//}
 	}
 	var start = false;
 	var int=setInterval(function(){
@@ -75,6 +76,7 @@
 
 	window.BM_MODE=true;
 	function checkExt(info) {
+		//console.log(info)
 		var parsedLinks = parseExt(info[3], info[1]);
 		//console.log('links: ',parsedLinks);
 		//return;
@@ -107,6 +109,7 @@
 	function parseExt(nums, type) {
 		//https://rule34.xyz/files/3004/3004747.jpeg
 		var exts, a = [];
+		//console.log(type);
 		switch(type){
 			case 'image':
 				exts = ['png', 'jpg', 'jpeg'];
@@ -122,6 +125,7 @@
 				exts = ['png', 'jpg', 'jpeg', 'gif', 'webm', 'mp4'];
 				break;
 		}
+		//console.log(exts);
 		exts.forEach(function(ext){
 			a.push('https://rule34.xyz/files/'+nums+'.'+ext);
 		})
