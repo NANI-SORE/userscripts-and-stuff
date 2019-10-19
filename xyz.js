@@ -31,20 +31,20 @@
 			return false;
 		}
 
-		let allPosts = document.querySelectorAll('.post-icon, .post-icon-large');
+		var allPosts = document.querySelectorAll('.post-icon, .post-icon-large');
 		//console.log(allPosts);
-		let infos = []; //[number in allPosts array, post type, array of link elements, numbers to recreate link]
-		//let infoCount = 0;
-		let wrong = ['volume_up','volume_off'];
-		for(let i=0;i<allPosts.length;i++) { let e=allPosts[i];
+		var infos = []; //[number in allPosts array, post type, array of link elements, numbers to recreate link]
+		//var infoCount = 0;
+		var wrong = ['volume_up','volume_off'];
+		for(var i=0;i<allPosts.length;i++) { var e=allPosts[i];
 											//allPosts.forEach(function(e,i){
 											if(wrong.indexOf(e.innerText) < 0) {
-												let parent = e.parentNode.parentNode.parentNode;
-												let links = parent.querySelectorAll('a');
-												let numbers = parent.querySelector('img:not(.headerBox-item)').src.match(/thumbnail\/(\d+\/\d+)\.\w+$/i)[1];
-												let isParsed = false;
+												var parent = e.parentNode.parentNode.parentNode;
+												var links = parent.querySelectorAll('a');
+												var numbers = parent.querySelector('img:not(.headerBox-item)').src.match(/thumbnail\/(\d+\/\d+)\.\w+$/i)[1];
+												var isParsed = false;
 												//console.log(numbers)
-												for(let k=0;k<links.length;k++) { let l=links[k];
+												for(var k=0;k<links.length;k++) { var l=links[k];
 																				 //links.forEach(function(l){
 																				 if(l.getAttribute('data-parsed')) {
 																					 isParsed=true;
@@ -59,13 +59,13 @@
 										   }//})
 		//console.log(infos);
 		alert('test1');
-		for(let n=0;n<infos.length;n++) { let e=infos[n];
+		for(var n=0;n<infos.length;n++) { var c=infos[n];
 										 //infos.forEach(function(e,i){
-										 setTimeout(function(){checkExt(e)}, 200*n);
+										 setTimeout(function(){checkExt(c)}, 200*n);
 										}//})
 	}
-	let start = false;
-	let int=setInterval(function(){
+	var start = false;
+	var int=setInterval(function(){
 		if(start) clearInterval(int);
 		else if(document.querySelectorAll('.post-icon, .post-icon-large').length>0) {
 			start = true;
@@ -75,14 +75,14 @@
 
 	window.BM_MODE=true;
 	function checkExt(info) {
-		let parsedLinks = parseExt(info[3], info[1]);
+		var parsedLinks = parseExt(info[3], info[1]);
 		//console.log('links: ',parsedLinks);
 		//return;
-		for(let m=0;m<parsedLinks.length;m++) { let l=parsedLinks[m];
+		for(var m=0;m<parsedLinks.length;m++) { var l=parsedLinks[m];
 											   //parsedLinks.forEach(function(l){
 											   var callback = function(xhr) { editLink(xhr, info); }
 											   var errorCall = function(xhr) { errorHandle(xhr); }
-											   if(BM_MODE) {
+											   if(window.BM_MODE) {
 												   var xhr = new XMLHttpRequest();
 												   xhr.open("GET", l, true);
 												   xhr.onload = function(){callback(xhr);};
@@ -106,7 +106,7 @@
 
 	function parseExt(nums, type) {
 		//https://rule34.xyz/files/3004/3004747.jpeg
-		let exts, a = [];
+		var exts, a = [];
 		switch(type){
 			case 'image':
 				exts = ['png', 'jpg', 'jpeg'];
@@ -133,7 +133,7 @@
 		//console.log(data.responseURL||data.finalUrl);
 		if(data.responseText[0]!=='<') {
 			alert('test3');
-			for(let j=0;j<info[2].length;j++) { let e=info[2][j];
+			for(var j=0;j<info[2].length;j++) { var e=info[2][j];
 											   //info[2].forEach(function(e){
 											   e.href=data.responseURL||data.finalUrl;
 											   //e.setAttribute('onclick', 'return openInNewTab(event)');
