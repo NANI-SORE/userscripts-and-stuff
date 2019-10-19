@@ -68,6 +68,7 @@ let int=setInterval(function(){
 	}
 },200);
 
+BM_MODE=true;
 function checkExt(info) {
 	let parsedLinks = parseExt(info[3], info[1]);
 	//console.log('links: ',parsedLinks);
@@ -121,9 +122,10 @@ function parseExt(nums, type) {
 }
 
 function editLink(data, info) {
+	//console.log(data)
 	if(data.responseText[0]!=='<') {
 		info[2].forEach(e=>{
-			e.href=data.finalUrl;
+			e.href=data.responseURL||data.finalUrl;
 			//e.setAttribute('onclick', 'return openInNewTab(event)');
 			e.setAttribute('data-parsed', true);
 			e.style.backgroundColor = '#D9360033';
