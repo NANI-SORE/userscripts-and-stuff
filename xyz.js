@@ -10,32 +10,33 @@
 
 //Переписать чтобы всегда работало само и перезаменяло ссылки при появлении новых элементов
 //Найти способ отменить переход после клика
+(function() {
+	'use strict';
+	function init() {
 
-function init() {
+		window.openInNewTab=function(event){
+			//console.log(event);
+			//event.preventDefault();
+			//alert(event.defaultPrevented);
+			//event.stopPropagation();
+			//event.stopImmediatePropagation();
+			//event.returnValue = false;
+			if(!event.target.href) return false;
 
-	openInNewTab=function(event){
-		//console.log(event);
-		//event.preventDefault();
-		//alert(event.defaultPrevented);
-		//event.stopPropagation();
-		//event.stopImmediatePropagation();
-		//event.returnValue = false;
-		if(!event.target.href) return false;
+			//alert('clicked');
+			var win = window.open(event.target.href, '_blank');
+			win.focus();
 
-		//alert('clicked');
-		var win = window.open(event.target.href, '_blank');
-		win.focus();
+			window.history.back();
+			return false;
+		}
 
-		window.history.back();
-		return false;
-	}
-
-	let allPosts = document.querySelectorAll('.post-icon, .post-icon-large');
-	//console.log(allPosts);
-	let infos = []; //[number in allPosts array, post type, array of link elements, numbers to recreate link]
-	//let infoCount = 0;
-	let wrong = ['volume_up','volume_off'];
-	for(let i=0;i<allPosts.length;i++) { let e=allPosts[i];
+		let allPosts = document.querySelectorAll('.post-icon, .post-icon-large');
+		//console.log(allPosts);
+		let infos = []; //[number in allPosts array, post type, array of link elements, numbers to recreate link]
+		//let infoCount = 0;
+		let wrong = ['volume_up','volume_off'];
+		for(let i=0;i<allPosts.length;i++) { let e=allPosts[i];
 											//allPosts.forEach(function(e,i){
 											if(wrong.indexOf(e.innerText) < 0) {
 												let parent = e.parentNode.parentNode.parentNode;
@@ -44,40 +45,40 @@ function init() {
 												let isParsed = false;
 												//console.log(numbers)
 												for(let k=0;k<links.length;k++) { let l=links[k];
-																					 //links.forEach(function(l){
-																					 if(l.getAttribute('data-parsed')) {
-																						 isParsed=true;
-																						 return;
-																					 }
-																					 l.setAttribute('onclick', 'return window.openInNewTab(event)');
-																					}//})
+																				 //links.forEach(function(l){
+																				 if(l.getAttribute('data-parsed')) {
+																					 isParsed=true;
+																					 return;
+																				 }
+																				 l.setAttribute('onclick', 'return window.openInNewTab(event)');
+																				}//})
 												if(isParsed) return;
 												infos.push([i, e.innerText, links, numbers]);//infoCount])
 												//infoCount++;
 											}
 										   }//})
-	//console.log(infos);
-	alert('test1');
-	for(let n=0;n<infos.length;n++) { let e=infos[n];
+		//console.log(infos);
+		alert('test1');
+		for(let n=0;n<infos.length;n++) { let e=infos[n];
 										 //infos.forEach(function(e,i){
 										 setTimeout(function(){checkExt(e)}, 200*n);
 										}//})
-}
-let start = false;
-let int=setInterval(function(){
-	if(start) clearInterval(int);
-	else if(document.querySelectorAll('.post-icon, .post-icon-large').length>0) {
-		start = true;
-		init();
 	}
-},200);
+	let start = false;
+	let int=setInterval(function(){
+		if(start) clearInterval(int);
+		else if(document.querySelectorAll('.post-icon, .post-icon-large').length>0) {
+			start = true;
+			init();
+		}
+	},200);
 
-BM_MODE=true;
-function checkExt(info) {
-	let parsedLinks = parseExt(info[3], info[1]);
-	//console.log('links: ',parsedLinks);
-	//return;
-	for(let m=0;m<parsedLinks.length;m++) { let l=parsedLinks[m];
+	window.BM_MODE=true;
+	function checkExt(info) {
+		let parsedLinks = parseExt(info[3], info[1]);
+		//console.log('links: ',parsedLinks);
+		//return;
+		for(let m=0;m<parsedLinks.length;m++) { let l=parsedLinks[m];
 											   //parsedLinks.forEach(function(l){
 											   var callback = function(xhr) { editLink(xhr, info); }
 											   var errorCall = function(xhr) { errorHandle(xhr); }
@@ -97,42 +98,42 @@ function checkExt(info) {
 												   });
 											   }
 											  }//})
-}
-
-function errorHandle(data) {
-	console.log('ERROR:\n', data);
-}
-
-function parseExt(nums, type) {
-	//https://rule34.xyz/files/3004/3004747.jpeg
-	let exts, a = [];
-	switch(type){
-		case 'image':
-			exts = ['png', 'jpg', 'jpeg'];
-			break;
-		case 'gif':
-			exts = ['gif'];
-			alert('test2');
-			break;
-		case 'videocam':
-			exts = ['webm', 'mp4'];
-			break;
-		default:
-			exts = ['png', 'jpg', 'jpeg', 'gif', 'webm', 'mp4'];
-			break;
 	}
-	exts.forEach(function(ext){
-		a.push('https://rule34.xyz/files/'+nums+'.'+ext);
-	})
-	return a;
-}
 
-function editLink(data, info) {
-	//console.log(data)
-	//console.log(data.responseURL||data.finalUrl);
-	if(data.responseText[0]!=='<') {
-		alert('test3');
-		for(let j=0;j<info[2].length;j++) { let e=info[2][j];
+	function errorHandle(data) {
+		console.log('ERROR:\n', data);
+	}
+
+	function parseExt(nums, type) {
+		//https://rule34.xyz/files/3004/3004747.jpeg
+		let exts, a = [];
+		switch(type){
+			case 'image':
+				exts = ['png', 'jpg', 'jpeg'];
+				break;
+			case 'gif':
+				exts = ['gif'];
+				alert('test2');
+				break;
+			case 'videocam':
+				exts = ['webm', 'mp4'];
+				break;
+			default:
+				exts = ['png', 'jpg', 'jpeg', 'gif', 'webm', 'mp4'];
+				break;
+		}
+		exts.forEach(function(ext){
+			a.push('https://rule34.xyz/files/'+nums+'.'+ext);
+		})
+		return a;
+	}
+
+	function editLink(data, info) {
+		//console.log(data)
+		//console.log(data.responseURL||data.finalUrl);
+		if(data.responseText[0]!=='<') {
+			alert('test3');
+			for(let j=0;j<info[2].length;j++) { let e=info[2][j];
 											   //info[2].forEach(function(e){
 											   e.href=data.responseURL||data.finalUrl;
 											   //e.setAttribute('onclick', 'return openInNewTab(event)');
@@ -140,15 +141,16 @@ function editLink(data, info) {
 											   e.style.backgroundColor = '#D9360033';
 											   //e.style.opacity = 0.33;
 											  }//})
+		}
 	}
-}
 
-function createBtn() {
-	var refreshBtn = document.createElement("a");
-	refreshBtn.setAttribute( "style", "cursor:pointer; position: fixed; top: 2vh; right: 1px; padding: 2px 0 0; width: 50px; height: 50px; display: block; overflow: hidden; background: #777; color: #fff; font-size: 14pt; text-decoration: none; font-weight: bold; text-align: center; line-height: 15pt; z-index: 1000000; " );
-	refreshBtn.onclick = function() { init(); }
-	refreshBtn.innerHTML = "R";
-	var body_ref = document.getElementsByTagName("body")[0];
-	body_ref.appendChild(refreshBtn);
-}
-createBtn();
+	function createBtn() {
+		var refreshBtn = document.createElement("a");
+		refreshBtn.setAttribute( "style", "cursor:pointer; position: fixed; top: 2vh; right: 1px; padding: 2px 0 0; width: 50px; height: 50px; display: block; overflow: hidden; background: #777; color: #fff; font-size: 14pt; text-decoration: none; font-weight: bold; text-align: center; line-height: 15pt; z-index: 1000000; " );
+		refreshBtn.onclick = function() { init(); }
+		refreshBtn.innerHTML = "R";
+		var body_ref = document.getElementsByTagName("body")[0];
+		body_ref.appendChild(refreshBtn);
+	}
+	createBtn();
+})();
