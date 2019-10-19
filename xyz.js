@@ -68,7 +68,7 @@ let int=setInterval(function(){
 	}
 },200);
 
-BM_MODE=true;
+//BM_MODE=true;
 function checkExt(info) {
 	let parsedLinks = parseExt(info[3], info[1]);
 	//console.log('links: ',parsedLinks);
