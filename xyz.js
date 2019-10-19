@@ -57,6 +57,7 @@ function init() {
 											}
 										   }//})
 	//console.log(infos);
+	alert('test1');
 	for(let n=0;n<infos.length;n++) { let e=infos[n];
 										 //infos.forEach(function(e,i){
 										 setTimeout(function(){checkExt(e)}, 200*n);
@@ -111,6 +112,7 @@ function parseExt(nums, type) {
 			break;
 		case 'gif':
 			exts = ['gif'];
+			alert('test2');
 			break;
 		case 'videocam':
 			exts = ['webm', 'mp4'];
@@ -129,6 +131,7 @@ function editLink(data, info) {
 	//console.log(data)
 	//console.log(data.responseURL||data.finalUrl);
 	if(data.responseText[0]!=='<') {
+		alert('test3');
 		for(let j=0;j<info[2].length;j++) { let e=info[2][j];
 											   //info[2].forEach(function(e){
 											   e.href=data.responseURL||data.finalUrl;
