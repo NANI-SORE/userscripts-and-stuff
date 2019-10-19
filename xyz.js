@@ -13,8 +13,8 @@
 
 function init() {
 
-	window.openInNewTab=function(event){
-		console.log(event);
+	openInNewTab=function(event){
+		//console.log(event);
 		//event.preventDefault();
 		//alert(event.defaultPrevented);
 		//event.stopPropagation();
@@ -22,7 +22,7 @@ function init() {
 		//event.returnValue = false;
 		if(!event.target.href) return false;
 
-		alert('clicked');
+		//alert('clicked');
 		var win = window.open(event.target.href, '_blank');
 		win.focus();
 
