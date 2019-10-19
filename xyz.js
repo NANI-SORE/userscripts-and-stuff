@@ -60,10 +60,11 @@
 										   }//})
 		//console.log(infos);
 		//alert('test1');
-		//for(var n=0;n<infos.length;n++) { var c=infos[];
-		infos.forEach(function(e,i){
-			setTimeout(function(){checkExt(e)}, 200*i);
-		})//}
+		for(var n=0;n<infos.length;n++) { var c=infos[n];
+										 //infos.forEach(function(e,i){
+										 //setTimeout(function(){checkExt(c)}, 200*n);
+										 checkExt(c)
+										}//})
 	}
 	var start = false;
 	var int=setInterval(function(){
