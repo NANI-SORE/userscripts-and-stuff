@@ -75,7 +75,7 @@ function checkExt(info) {
 	parsedLinks.forEach(l=>{
 		var callback = function(xhr) { editLink(xhr, info); }
 		var errorCall = function(xhr) { errorHandle(xhr); }
-		if(GM_xmlhttpRequest) {
+		if(typeof GM_xmlhttpRequest!=='undefined') {
 			GM_xmlhttpRequest({
 				"method"    : 'GET',
 				"url"       : l,
@@ -84,11 +84,11 @@ function checkExt(info) {
 			});
 		}
 		else {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", l, true);
-		xhr.onload = function(){callback(xhr);};
-		xhr.onerror = function(){errorCall(xhr);};
-		xhr.send();
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", l, true);
+			xhr.onload = function(){callback(xhr);};
+			xhr.onerror = function(){errorCall(xhr);};
+			xhr.send();
 		}
 	})
 }
