@@ -58,7 +58,7 @@
 											}
 										   }//})
 		//console.log(infos);
-		alert('test1');
+		//alert('test1');
 		for(var n=0;n<infos.length;n++) { var c=infos[n];
 										 //infos.forEach(function(e,i){
 										 setTimeout(function(){checkExt(c)}, 200*n);
@@ -113,7 +113,7 @@
 				break;
 			case 'gif':
 				exts = ['gif'];
-				alert('test2');
+				//alert('test2');
 				break;
 			case 'videocam':
 				exts = ['webm', 'mp4'];
@@ -132,7 +132,7 @@
 		//console.log(data)
 		//console.log(data.responseURL||data.finalUrl);
 		if(data.responseText[0]!=='<') {
-			alert('test3');
+			//alert('test3');
 			for(var j=0;j<info[2].length;j++) { var e=info[2][j];
 											   //info[2].forEach(function(e){
 											   e.href=data.responseURL||data.finalUrl;
