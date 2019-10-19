@@ -123,6 +123,7 @@ function parseExt(nums, type) {
 
 function editLink(data, info) {
 	//console.log(data)
+	//console.log(data.responseURL||data.finalUrl);
 	if(data.responseText[0]!=='<') {
 		info[2].forEach(e=>{
 			e.href=data.responseURL||data.finalUrl;
