@@ -27,7 +27,7 @@ var nsfwimp = [{
   curpage: 'div.sn > div > span:nth-child(1)'
 }, {
   name: '8muses',
-  match: "^http(s)?://www.8muses.com/comix/picture/[^/]+/[^/]+/[^/]+/.+",
+  match: "^http(s)?://www.8muses.com/comics/picture/[^/]+/[^/]+/[^/]+/.+",
   img: function(ctx) {
     var img = getEl('.photo img.image', ctx);
     return img ? img.src : getEl('#imageDir', ctx).value + getEl('#imageName', ctx).value;
