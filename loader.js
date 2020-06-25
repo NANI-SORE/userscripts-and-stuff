@@ -162,6 +162,7 @@
 // @match *://host.chudo-manga.ru/reader/*
 // @match *://telegra.ph/*
 // @match *://te.legra.ph/*
+// @match *://hentainexus.com/*
 // -- NSFW END
 // -- FOOLSLIDE NSFW START
 // @match *://reader.yuriproject.net/read/*
@@ -1982,6 +1983,11 @@ var nsfwimp = [{
 		num+=1;
 		cb(url, url);
 	}
+}, {
+	name: 'HentaiNexus',
+	match: "^https?://hentainexus.com/read/.+/",
+	img: '#currImage',
+	next: '#nextLink'
 }];
 // END OF IMPL
 
